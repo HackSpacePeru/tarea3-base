@@ -38,6 +38,12 @@
     - name: Ensure git is at the latest version
       apt: pkg=git-core state=latest
 
+    - name: Ensure postgresql is at the latest version
+      apt: pkg={{ item }} state=latest
+      with_items:
+        - postgresql
+        - libpq-dev
+
     - name: Installs curl
       apt: pkg=curl state=present
       
