@@ -5,7 +5,7 @@
 
   tasks:
     - name: Install python-software-properties
-      apt: pkg=python-software-properties state=present
+      apt: update_cache=yes pkg=python-software-properties state=present
 
     - name: Add php5 repository
       apt_repository: repo='ppa:ondrej/php5-oldstable' state=present
