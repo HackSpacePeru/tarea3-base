@@ -79,15 +79,4 @@
     - name: restart apache
       service: name=apache2 state=restarted
 
-- hosts: all
-  sudo: yes
-
-  vars:
-    symfony_folder: /home/vagrant/symfony
-    symfony_app: "{{ symfony_folder }}/app"
-    httpd_user: www-data
-
-  tasks:
-    - name: Ensure / is mounted with acl
-      mount: src='/dev/mapper/precise32-root' name=/ fstype=ext4 state=mounted opts="rw,acl"
 
