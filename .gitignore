@@ -1,5 +1,8 @@
 # Ignore bundler config
 /bin
 /.bundle
-/.vagrant
-/.vagrantfile
+/vagrant/.vagrant
+/vagrant/.vagrantfile
+.*
+!.gitignore
+[#].[#]
