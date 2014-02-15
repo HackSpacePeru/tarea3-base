@@ -60,6 +60,7 @@
 
     - name: Copy symfony vhost
       copy: src=files/symfony.conf dest=/etc/apache2/sites-available/symfony.conf
+      notify: restart apache
 
     - name: Enable symfony vhost
       command: a2ensite symfony.conf
