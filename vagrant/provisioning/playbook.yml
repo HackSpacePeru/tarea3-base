@@ -5,7 +5,7 @@
 
   tasks:
     - name: Install python-software-properties
-      apt: update_cache=yes pkg=python-software-properties state=present
+      apt: pkg=python-software-properties state=latest
 
     - name: Add php5 repository
       apt_repository: repo='ppa:ondrej/php5-oldstable' state=present
@@ -19,7 +19,7 @@
         - restart apache
 
     - name: Install Apache php5 mod
-      apt: pkg=libapache2-mod-php5 state=present
+      apt: pkg=libapache2-mod-php5 state=latest
       notify:
         - restart apache
 
@@ -27,7 +27,7 @@
       apt: pkg=php5 state=latest
 
     - name: Install php extensions
-      apt: pkg={{ item }} state=present
+      apt: pkg={{ item }} state=latest
       with_items:
         - php5-cli
         - php5-mysql
@@ -43,12 +43,37 @@
       with_items:
         - postgresql
         - libpq-dev
+        - python-psycopg2
 
     - name: Installs curl
       apt: pkg=curl state=present
 
+    - name: Installs acl
+      apt: pkg=acl state=latest
+
     - name: Installs vim
       apt: pkg=vim state=present
+
+- hosts: all
+  sudo: yes
+  sudo_user: postgres
+
+  tasks:
+
+    - name: Ensure database is created
+      postgresql_db: name=symfony
+
+    - name: Ensure user has access to database
+      postgresql_user: 
+        db: symfony
+        name: symfony
+        password: symfony
+        priv: ALL
+
+    - name: Ensure user does not have unnecessary privilege
+      postgresql_user:
+        name: symfony
+        role_attr_flags: NOSUPERUSER,NOCREATEDB
 
   handlers:
     - name: restart apache
