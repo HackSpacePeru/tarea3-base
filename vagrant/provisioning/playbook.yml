@@ -80,3 +80,15 @@
       service: name=apache2 state=restarted
 
 
+- hosts: all
+  sudo: yes
+
+  tasks:
+    - name: Disable 000-default site
+      command: a2dissite default
+
+    - name: Copy symfony vhost
+      copy: src=files/symfony.conf dest=/etc/apache2/sites-available/symfony.conf
+
+    - name: Enable symfony vhost
+      command: a2ensite symfony.conf
