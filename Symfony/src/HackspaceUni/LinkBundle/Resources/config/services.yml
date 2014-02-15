@@ -1,0 +1,7 @@
+parameters:
+#    hackspace_uni_link.example.class: HackspaceUni\LinkBundle\Example
+
+services:
+#    hackspace_uni_link.example:
+#        class: %hackspace_uni_link.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
